@@ -24,4 +24,20 @@ public class Deck {
             System.out.println(card);
         }
     }
+
+    //cut the card deck at the given index
+    public void cutDeck(int index) {
+        if (index < 0 || index >= deck.size()) {
+            System.out.println("Invalid number!");
+            return;
+        }
+
+        ArrayList<String> topHalf = new ArrayList<>(deck.subList(0, index));
+        ArrayList<String> bottomHalf = new ArrayList<>(deck.subList(index, deck.size()));
+
+        //replace the first deck and change the cards with the cut version
+        deck.clear();
+        deck.addAll(bottomHalf);
+        deck.addAll(topHalf);
+    }
 }
