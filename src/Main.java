@@ -6,5 +6,7 @@ public class Main {
         System.out.println("bhjdvhjscbkfhbv");
         game.cutDeck();
         game.printDeck();
+
+        game.InitGame(3);
     }
 }

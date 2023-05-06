@@ -6,7 +6,44 @@ public class Game {
     public ArrayList<Card> playedCards;
     public Random ran = new Random();
     public Card card;
-    public boolean isFirstRound;
+    public boolean isFirstRound = true;
+    public int playerCount;
+    public ArrayList<Card> table;
+
+    Player player1 = null;
+    Player player2 = null;
+    Player player3 = null;
+    Player player4 = null;
+
+    public void InitGame(int playerCount){
+        createDeck();
+
+        switch (playerCount){
+
+            case 2:
+                 player1 = new Player();
+                 player2 = new Player();
+                 break;
+
+            case 3:
+                player1 = new Player();
+                player2 = new Player();
+                player3 = new Player();
+                break;
+
+            case 4:
+                player1 = new Player();
+                player2 = new Player();
+                player3 = new Player();
+                player4 = new Player();
+                break;
+
+
+
+        }
+
+    }
+
     public void createDeck()
     {
         deck = new ArrayList<>();
@@ -42,9 +79,50 @@ public class Game {
         }
     }
 
-    public Card dealCard(){
+    public Card pullCardFromDeck(){
         Card card = deck.remove(0);
         return card;
+    }
+
+    public void deal4Card(Player player){
+
+        for (int i=0; i<4; i++) {
+            Card temp = pullCardFromDeck();
+            player.hand.add(temp);}
+    }
+
+    public void dealCard(){
+
+        if (isFirstRound){
+            for (int i=0; i<4; i++){
+               Card temp = pullCardFromDeck();
+               table.add(temp);
+               playedCards.add(temp);
+            }
+            isFirstRound=false;
+        }
+
+       if (playerCount==2){
+           deal4Card(player1);
+           deal4Card(player2);
+       }
+
+        if (playerCount==3){
+            deal4Card(player1);
+            deal4Card(player2);
+            deal4Card(player3);
+        }
+
+        if (playerCount==4){
+            deal4Card(player1);
+            deal4Card(player2);
+            deal4Card(player3);
+            deal4Card(player4);
+        }
+
+
+
+
     }
 
 
