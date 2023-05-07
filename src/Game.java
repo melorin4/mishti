@@ -101,28 +101,29 @@ public class Game {
             }
             isFirstRound=false;
         }
-
        if (playerCount==2){
            deal4Card(player1);
            deal4Card(player2);
        }
-
         if (playerCount==3){
             deal4Card(player1);
             deal4Card(player2);
             deal4Card(player3);
         }
-
         if (playerCount==4){
             deal4Card(player1);
             deal4Card(player2);
             deal4Card(player3);
             deal4Card(player4);
         }
-
-
-
-
+    }
+    public void addGround(Card thrownCard){
+        playedCards.add(thrownCard);
+        table.add(thrownCard);
+    }
+    public void throwCardForPlayer(int cardNum){
+        addGround(player1.hand.get(cardNum-1));
+        player1.hand.remove(cardNum-1);
     }
 
 
