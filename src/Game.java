@@ -123,7 +123,34 @@ public class Game {
     }
     public void throwCardForPlayer(int cardNum){
         addGround(player1.hand.get(cardNum-1));
+        cardCompare();
         player1.hand.remove(cardNum-1);
+    }
+
+    public boolean isMishti = false; // pişti puanı hesaplanırken kullan!
+    public void cardCompare(){
+
+        int size = table.size();
+        if (table.size()>1){
+            if (table.get(size-1).getValue() == table.get(size-2).getValue() || table.get(size-1).getValue() == "J"){
+                table.clear();
+            }
+            // Puanlar eklenecek!!
+
+        }
+        if (table.size() == 1){
+            if (table.get(size-1).getValue() == table.get(size-2).getValue()){
+                isMishti = true;
+                table.clear();
+            }
+            if (isMishti = false){
+                if (table.get(size-1).getValue() == "J"){
+                    table.clear();
+
+                }
+            }
+        }
+        isMishti = false;
     }
 
 
