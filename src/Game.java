@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
-public class Game implements ComputerPlayers {
+public class Game {
     private ArrayList<Card> deck;
     public ArrayList<Card> playedCards;
     public Random ran = new Random();
@@ -152,6 +152,21 @@ public class Game implements ComputerPlayers {
             }
         }
         isMishti = false;
+    }
+
+    public void botMovement(Player player){
+
+        if (player.expertLevel == "novice") {
+            int random = ran.nextInt(0,player.hand.size());
+            addGround(player.hand.get(random));
+            cardCompare();
+            player.hand.remove(random);
+        }
+        if (player.expertLevel == "regular") {
+
+
+        }
+
     }
 
 
