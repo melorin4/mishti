@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Player implements Moves {
+public class Player {
     Game game = new Game();
     public ArrayList<Card> hand;
     public String name;

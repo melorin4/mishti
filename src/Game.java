@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
-public class Game {
+public class Game implements ComputerPlayers {
     private ArrayList<Card> deck;
     public ArrayList<Card> playedCards;
     public Random ran = new Random();
@@ -10,10 +10,13 @@ public class Game {
     public int playerCount;
     public ArrayList<Card> table;
 
-    Player player1 = null;
+    public boolean isMishti = false; // pişti puanı hesaplanırken kullan!
+
+    Player player1 = null; //Human
     Player player2 = null;
     Player player3 = null;
     Player player4 = null;
+
 
     public void InitGame(int playerCount){
         createDeck();
@@ -90,7 +93,6 @@ public class Game {
             Card temp = pullCardFromDeck();
             player.hand.add(temp);}
     }
-
     public void dealCard(){
 
         if (isFirstRound){
@@ -117,17 +119,16 @@ public class Game {
             deal4Card(player4);
         }
     }
-    public void addGround(Card thrownCard){
+    public void addGround(Card thrownCard){ // Human and Bots
         playedCards.add(thrownCard);
         table.add(thrownCard);
     }
-    public void throwCardForPlayer(int cardNum){
+
+    public void throwCardForPlayer(int cardNum){ // Human
         addGround(player1.hand.get(cardNum-1));
         cardCompare();
         player1.hand.remove(cardNum-1);
     }
-
-    public boolean isMishti = false; // pişti puanı hesaplanırken kullan!
     public void cardCompare(){
 
         int size = table.size();
