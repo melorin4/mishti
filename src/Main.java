@@ -3,7 +3,7 @@ public class Main {
         Game game = new Game();
         game.createDeck();
         game.printDeck();
-        System.out.println("------------------------------------");
+        System.out.println("bhjdvhjscbkfhbv");
         game.cutDeck();
         game.printDeck();
 
