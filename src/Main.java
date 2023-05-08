@@ -8,5 +8,8 @@ public class Main {
         game.printDeck();
 
         game.InitGame(3);
+
+        Card card = new Card("♥", "3");
+        System.out.println(card.getCardPoint("PointFile.txt"));
     }
 }
