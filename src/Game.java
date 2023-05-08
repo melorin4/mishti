@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 public class Game {
-    private ArrayList<Card> deck;
+    public ArrayList<Card> deck;
     public ArrayList<Card> playedCards;
     public Random ran = new Random();
     public Card card;
@@ -36,31 +36,20 @@ public class Game {
         deck = new ArrayList<>();
         String[] suits = {"♠", "♥", "♦", "♣"};
         String[] ranks = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
-        try {
-            List<String> lines = Files.readAllLines(Paths.get("PointFile.txt"));
-            for (String suit : suits) {
-                for (String value : ranks) {
-                    int cardPoint = 1;
-                    String cardName = suit + " " + value;
-                    for (String line : lines) {
-                        String[] parts = line.split(" ");
-                        if (parts[0].equals(suit + value) || parts[0].equals("*" + value) || parts[0].equals(suit + "*") || parts[0].equals("**")) {
-                            cardPoint = Integer.parseInt(parts[1]);
-                            break;
-                        }
-                    }
-                    deck.add(new Card(suit, value, cardPoint));
-                }
+        //create the cards
+        for (String suit : suits) {
+            for (String rank : ranks) {
+                deck.add(new Card(rank, suit));
             }
-        } catch (IOException e) {
-            System.out.println("Error reading point values file: " + e.getMessage());
         }
     }
 
+
     public void cutDeck() {
         int index = ran.nextInt(1,51);
-        ArrayList<Card> topHalf = new ArrayList<>(deck.subList(0, index));
-        ArrayList<Card> bottomHalf = new ArrayList<>(deck.subList(index, deck.size()-1));
+        System.out.println(getDeckSize());
+        ArrayList<Card> topHalf = new ArrayList<>(deck.subList(0, index-1));
+        ArrayList<Card> bottomHalf = new ArrayList<>(deck.subList( index,  deck.size()-1));
 
         //replace the first deck and change the cards with the cut version
         deck.clear();
@@ -121,6 +110,13 @@ public class Game {
         table.add(thrownCard);
     }
 
+    public ArrayList<Card> getDeck() {
+        return deck;
+    }
+
+    public int getDeckSize() {
+        return deck.size();
+    }
 
     public void cardCompare(){
 
@@ -146,21 +142,4 @@ public class Game {
         }
         isMishti = false;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
