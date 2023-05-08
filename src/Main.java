@@ -8,7 +8,5 @@ public class Main {
         game.printDeck();
 
         game.InitGame(3);
-        System.out.println(game.getDeck().get(0).getCardPoint());
-
     }
 }
