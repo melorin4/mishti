@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
-public class Game implements ComputerPlayers {
+public class Game {
     private ArrayList<Card> deck;
     public ArrayList<Card> playedCards;
     public Random ran = new Random();
@@ -21,31 +21,11 @@ public class Game implements ComputerPlayers {
     public void InitGame(int playerCount){
         createDeck();
 
-        switch (playerCount){
-
-            case 2:
-                 player1 = new Player();
-                 player2 = new Player();
-                 break;
-
-            case 3:
-                player1 = new Player();
-                player2 = new Player();
-                player3 = new Player();
-                break;
-
-            case 4:
-                player1 = new Player();
-                player2 = new Player();
-                player3 = new Player();
-                player4 = new Player();
-                break;
 
 
 
-        }
 
-    }
+   }
 
     public void createDeck()
     {
@@ -91,7 +71,7 @@ public class Game implements ComputerPlayers {
 
         for (int i=0; i<4; i++) {
             Card temp = pullCardFromDeck();
-            player.hand.add(temp);}
+            player.getHand().add(temp);}
     }
     public void dealCard(){
 
@@ -124,11 +104,7 @@ public class Game implements ComputerPlayers {
         table.add(thrownCard);
     }
 
-    public void throwCardForPlayer(int cardNum){ // Human
-        addGround(player1.hand.get(cardNum-1));
-        cardCompare();
-        player1.hand.remove(cardNum-1);
-    }
+
     public void cardCompare(){
 
         int size = table.size();
@@ -153,6 +129,21 @@ public class Game implements ComputerPlayers {
         }
         isMishti = false;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
