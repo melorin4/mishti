@@ -21,11 +21,31 @@ public class Game {
     public void InitGame(int playerCount){
         createDeck();
 
+        switch (playerCount){
+
+            case 2:
+                 player1 = new Player();
+                 player2 = new Player();
+                 break;
+
+            case 3:
+                player1 = new Player();
+                player2 = new Player();
+                player3 = new Player();
+                break;
+
+            case 4:
+                player1 = new Player();
+                player2 = new Player();
+                player3 = new Player();
+                player4 = new Player();
+                break;
 
 
 
+        }
 
-   }
+    }
 
     public void createDeck()
     {
@@ -71,7 +91,7 @@ public class Game {
 
         for (int i=0; i<4; i++) {
             Card temp = pullCardFromDeck();
-            player.getHand().add(temp);}
+            player.hand.add(temp);}
     }
     public void dealCard(){
 
@@ -104,7 +124,11 @@ public class Game {
         table.add(thrownCard);
     }
 
-
+    public void throwCardForPlayer(int cardNum){ // Human
+        addGround(player1.hand.get(cardNum-1));
+        cardCompare();
+        player1.hand.remove(cardNum-1);
+    }
     public void cardCompare(){
 
         int size = table.size();
@@ -130,20 +154,20 @@ public class Game {
         isMishti = false;
     }
 
+    public void botMovement(Player player){
+
+        if (player.expertLevel == "novice") {
+            int random = ran.nextInt(0,player.hand.size());
+            addGround(player.hand.get(random));
+            cardCompare();
+            player.hand.remove(random);
+        }
+        if (player.expertLevel == "regular") {
 
 
+        }
 
-
-
-
-
-
-
-
-
-
-
-
+    }
 
 
 }
