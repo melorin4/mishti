@@ -1,12 +1,8 @@
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 public class Game {
-    public ArrayList<Card> deck;
+    private ArrayList<Card> deck;
     public ArrayList<Card> playedCards;
     public Random ran = new Random();
     public Card card;
@@ -26,10 +22,7 @@ public class Game {
         createDeck();
 
 
-
-
-
-   }
+    }
 
     public void createDeck()
     {
@@ -44,12 +37,10 @@ public class Game {
         }
     }
 
-
     public void cutDeck() {
         int index = ran.nextInt(1,51);
-        System.out.println(getDeckSize());
-        ArrayList<Card> topHalf = new ArrayList<>(deck.subList(0, index-1));
-        ArrayList<Card> bottomHalf = new ArrayList<>(deck.subList( index,  deck.size()-1));
+        ArrayList<Card> topHalf = new ArrayList<>(deck.subList(0, index));
+        ArrayList<Card> bottomHalf = new ArrayList<>(deck.subList(index, deck.size()-1));
 
         //replace the first deck and change the cards with the cut version
         deck.clear();
@@ -83,16 +74,16 @@ public class Game {
 
         if (isFirstRound){
             for (int i=0; i<4; i++){
-               Card temp = pullCardFromDeck();
-               table.add(temp);
-               playedCards.add(temp);
+                Card temp = pullCardFromDeck();
+                table.add(temp);
+                playedCards.add(temp);
             }
             isFirstRound=false;
         }
-       if (playerCount==2){
-           deal4Card(player1);
-           deal4Card(player2);
-       }
+        if (playerCount==2){
+            deal4Card(player1);
+            deal4Card(player2);
+        }
         if (playerCount==3){
             deal4Card(player1);
             deal4Card(player2);
@@ -110,13 +101,6 @@ public class Game {
         table.add(thrownCard);
     }
 
-    public ArrayList<Card> getDeck() {
-        return deck;
-    }
-
-    public int getDeckSize() {
-        return deck.size();
-    }
 
     public void cardCompare(){
 
@@ -142,4 +126,21 @@ public class Game {
         }
         isMishti = false;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
