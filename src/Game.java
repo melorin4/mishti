@@ -3,9 +3,9 @@ import java.util.Collections;
 import java.util.Random;
 public class Game {
     private ArrayList<Card> deck;
+    private String pointFilePath;
     public ArrayList<Card> playedCards;
     public Random ran = new Random();
-    public Card card;
     public boolean isFirstRound = true;
     public int playerCount;
     public ArrayList<Card> table;
@@ -17,6 +17,9 @@ public class Game {
     Player player3 = null;
     Player player4 = null;
 
+    public Game(String pointFilePath){
+        this.pointFilePath = pointFilePath;
+    }
 
     public void InitGame(int playerCount){
         createDeck();
@@ -27,17 +30,25 @@ public class Game {
 
    }
 
+    public void  getDeckWithPoints() {
+        for (Card card: this.deck) {
+            System.out.println(card.cardName+" "+card.cardPoint);
+        }
+
+    }
+
     public void createDeck()
     {
-        deck = new ArrayList<>();
+        ArrayList<Card> localDeck = new ArrayList<Card>();
         String[] suits = {"♠", "♥", "♦", "♣"};
         String[] ranks = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
         //create the cards
         for (String suit : suits) {
             for (String rank : ranks) {
-                deck.add(new Card(rank, suit));
+                localDeck.add(new Card(suit, rank, this.pointFilePath));
             }
         }
+        this.deck = localDeck;
     }
 
     public void cutDeck() {
@@ -109,19 +120,19 @@ public class Game {
 
         int size = table.size();
         if (table.size()>1){
-            if (table.get(size-1).getValue() == table.get(size-2).getValue() || table.get(size-1).getValue() == "J"){
+            if (table.get(size-1).getRank() == table.get(size-2).getRank() || table.get(size-1).getRank() == "J"){
                 table.clear();
             }
             // Puanlar eklenecek!!
 
         }
         if (table.size() == 1){
-            if (table.get(size-1).getValue() == table.get(size-2).getValue()){
+            if (table.get(size-1).getRank() == table.get(size-2).getRank()){
                 isMishti = true;
                 table.clear();
             }
             if (isMishti = false){
-                if (table.get(size-1).getValue() == "J"){
+                if (table.get(size-1).getRank() == "J"){
                     table.clear();
 
                 }

@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public abstract class Player extends Game {
+public abstract class Player  {
     //Game game = new Game(); // why
     private ArrayList<Card> hand;
     private String name;

@@ -7,6 +7,7 @@ public class NovicePlayer extends Player  {
 
     }
 
+    /*
     @Override
     public void throwCard() {
         int random = ran.nextInt(0,getHand().size());
@@ -14,6 +15,8 @@ public class NovicePlayer extends Player  {
             cardCompare();
             getHand().remove(random);
         }
+
+     */
     }
 
 

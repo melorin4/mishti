@@ -4,15 +4,15 @@ import java.util.Scanner;
 
 public class Card {
     public String suit;
-    public String value;
+    public String rank;
     public String cardName;
     public int cardPoint;
 
-    public Card(String suit, String value) {
+    public Card(String suit, String rank, String pointFilePath) {
         this.suit = suit;
-        this.value = value;
-        this.cardName = suit + " " + value;
-        this.cardPoint = getCardPoint("PointFile.txt");
+        this.rank = rank;
+        this.cardName = suit + " " + rank;
+        this.cardPoint = this.getCardPoint(pointFilePath);
     }
 
     public String getSuit() {
@@ -23,25 +23,39 @@ public class Card {
         return cardName;
     }
 
-    public String getValue() {
-        return value;
+    public String getRank() {
+        return rank;
     }
 
     // file reading
     public int getCardPoint(String filename) {
-        int defaultPoint = 1; // default point value
+        int defaultPoint = 10; // default point
         try {
             File file = new File(filename);
-            Scanner scanner = new Scanner(new File("C:\\Users\\melorin\\Documents\\GitHub\\mishti\\src\\PointFile"));
+            // "C:\\Users\\selin\\OneDrive\\Desktop\\MySE116Project\\mishti\\src\\PointFile"
+            Scanner scanner = new Scanner(file);
 
             while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                if (line.startsWith(suit) && (line.substring(1).contains(value) || line.endsWith("*"))) {
-                    // found a matching line
+                 String line = scanner.nextLine();
+                 if (line.startsWith(suit) && line.substring(1,3).contains(rank)) {
+                     String[] parts = line.split("\\s+");
+                     return Integer.parseInt(parts[1]);
+
+                 } else if (line.startsWith(suit) && line.substring(1).contains("*")){
+                     String[] parts = line.split("\\s+");
+                     return Integer.parseInt(parts[1]);
+
+                } else if (line.startsWith("*") && line.substring(1,3).contains(rank)){
                     String[] parts = line.split("\\s+");
-                    return Integer.parseInt(parts[1]);
+                     return Integer.parseInt(parts[1]);
+
+                } else if (line.startsWith("**")){
+                    String[] parts = line.split("\\s+");
+                     return Integer.parseInt(parts[1]);
+
                 }
             }
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
