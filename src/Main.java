@@ -20,7 +20,7 @@ public class Main {
                     playerNames.add(args[5]);
                     playerExpertise.add(args[4]);
                     playerExpertise.add(args[6]);
-                    game = new Game(args[0], Integer.parseInt(args[1]), playerNames, playerExpertise, Boolean.parseBoolean(args[7]));
+                    game = new Game(pointFilePath, Integer.parseInt(args[1]), playerNames, playerExpertise, Boolean.parseBoolean(args[7]));
                     break;
                 case "3":
                     playerNames.add(args[3]);
@@ -29,7 +29,7 @@ public class Main {
                     playerExpertise.add(args[4]);
                     playerExpertise.add(args[6]);
                     playerExpertise.add(args[8]);
-                    game = new Game(args[0], Integer.parseInt(args[1]), playerNames, playerExpertise, Boolean.parseBoolean(args[9]));
+                    game = new Game(pointFilePath, Integer.parseInt(args[1]), playerNames, playerExpertise, Boolean.parseBoolean(args[9]));
                 case "4":
                     playerNames.add(args[3]);
                     playerNames.add(args[5]);
@@ -39,7 +39,7 @@ public class Main {
                     playerExpertise.add(args[6]);
                     playerExpertise.add(args[8]);
                     playerExpertise.add(args[10]);
-                    game = new Game(args[0], Integer.parseInt(args[1]), playerNames, playerExpertise, Boolean.parseBoolean(args[11]));
+                    game = new Game(pointFilePath, Integer.parseInt(args[1]), playerNames, playerExpertise, Boolean.parseBoolean(args[11]));
             }
         }catch (IllegalArgumentException e){
             e.printStackTrace();
