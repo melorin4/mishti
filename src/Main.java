@@ -1,44 +1,51 @@
+import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        Game game = null;
+        ArrayList<String> playerNames = new ArrayList<>();
+        ArrayList<String> playerExpertise = new ArrayList<>();
         Path path = Path.of("").toAbsolutePath();
         String pointFilePath = path.normalize().toString()+ "\\src\\PointFile";
-        ArrayList<String> playerNames = args[3].split(" ");
         if (args.length >=1 ){
-            pointFilePath = args[1];
+            pointFilePath = args[0];
         }
-//                number of players,point file name,
-//                             ^        ^
-        Game game = new Game(args[0],args[1], );
-        game.createDeck();
-
-        //game.printDeck();
-        System.out.println("------------------------------------");
-        //game.cutDeck();
-        //game.printDeck();
-
-        //game.InitGame(3);
-
-        System.out.println();
-
-        /*
-        Card card1 = new Card("♥", "3"); // -10
-        System.out.println(card1.getCardPoint("PointFile.txt"));
-        Card card2 = new Card("♥", "4"); // 2
-        System.out.println(card2.getCardPoint("PointFile.txt"));
-        Card card3 = new Card("♥", "5"); // 2
-        System.out.println(card3.getCardPoint("PointFile.txt"));
-        Card card4 = new Card("♦", "5"); // -1
-        System.out.println(card4.getCardPoint("PointFile.txt"));
-        Card card5 = new Card("♣", "7"); // 0
-        System.out.println(card5.getCardPoint("PointFile.txt"));
-
-*/
-        game.getDeckWithPoints();
-
+        try {
+            switch (args[1]) {
+                case "2":
+                    playerNames.add(args[3]);
+                    playerNames.add(args[5]);
+                    playerExpertise.add(args[4]);
+                    playerExpertise.add(args[6]);
+                    game = new Game(args[0], Integer.parseInt(args[1]), playerNames, playerExpertise, Boolean.parseBoolean(args[7]));
+                    break;
+                case "3":
+                    playerNames.add(args[3]);
+                    playerNames.add(args[5]);
+                    playerNames.add(args[7]);
+                    playerExpertise.add(args[4]);
+                    playerExpertise.add(args[6]);
+                    playerExpertise.add(args[8]);
+                    game = new Game(args[0], Integer.parseInt(args[1]), playerNames, playerExpertise, Boolean.parseBoolean(args[9]));
+                case "4":
+                    playerNames.add(args[3]);
+                    playerNames.add(args[5]);
+                    playerNames.add(args[7]);
+                    playerNames.add(args[9]);
+                    playerExpertise.add(args[4]);
+                    playerExpertise.add(args[6]);
+                    playerExpertise.add(args[8]);
+                    playerExpertise.add(args[10]);
+                    game = new Game(args[0], Integer.parseInt(args[1]), playerNames, playerExpertise, Boolean.parseBoolean(args[11]));
+            }
+        }catch (IllegalArgumentException e){
+            e.printStackTrace();
+            System.err.println("Please enter inputs in the correct order: *point file name* *number of players* *round* *name + expertise level for each player* *verbose mode(true/false)*");
+        }
+        game.GameLoop(Integer.parseInt(args[2]));
 
 
     }

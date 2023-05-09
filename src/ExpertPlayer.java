@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 public class ExpertPlayer extends Player {
 
-    public ExpertPlayer(ArrayList<Card> hand, String name, int points, String expertLevel){
-            super(hand, name, points, expertLevel);
+    public ExpertPlayer(String name,String expertLevel){
+            super(name,expertLevel);
     }
 
         @Override
@@ -12,7 +12,7 @@ public class ExpertPlayer extends Player {
             Card bestCard = null;
             for (Card i : getHand()) {
                 if(table.size()>0) {
-                    if (table.get(cardsOnTable - 1).rank == i.rank) {
+                    if (table.get(cardsOnTable - 1).rank == i.rank || i.suit == "J") {
                         if (bestCard == null || i.cardPoint > bestCard.cardPoint) {
                             bestCard = i;
                         }
@@ -21,37 +21,35 @@ public class ExpertPlayer extends Player {
             }
             for(Card i:getHand()){
                 if(table.size()>0){
-                    if(table.get(cardsOnTable-1).rank == i.rank){
+                    if(table.get(cardsOnTable-1).rank == i.rank || i.suit == "J"){
                         if(calculateTableScore(table) > 0){
+                            getHand().remove(bestCard);
                             return bestCard;
                         }
                     }
                 }
             }
-            Card worstCard = getHand().get(0);
-            int[] seenCards = new int[getHand().size()];
-            for (int i=0;i<seenCards.length;i++){
-                seenCards[i] = 0;
-            }
-            for (int i = 0;i<getHand().size();i++) {
-                for (Card j:table) {
-                    if(getHand().get(i).rank==j.rank){
-                        seenCards[i]++;
+            Card worstCard = null;
+            trackCards(playedCards);
+            for(Card i : getHand()) {
+                for(int j=0;j<13;j++){
+                    if(i.rank == seenCards[j][0] && seenCards[j][1] == "4"){
+                        if(worstCard == null || i.cardPoint < worstCard.cardPoint) {
+                            worstCard = i;
+                        }
                     }
                 }
             }
-            for (int i = 0;i<getHand().size();i++) {
-                for (Card j:playedCards) {
-                    if(getHand().get(i).rank==j.rank){
-                        seenCards[i]++;
-                    }
-                }
+            if(worstCard != null) {
+                getHand().remove(worstCard);
+                return worstCard;
             }
             for(Card i : getHand()) {
                 if(i.cardPoint < worstCard.cardPoint){
                     worstCard = i;
                 }
             }
+            getHand().remove(worstCard);
             return worstCard;
         }
     

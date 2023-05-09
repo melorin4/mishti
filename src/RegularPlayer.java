@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 public class RegularPlayer extends Player{
 
-    public RegularPlayer(ArrayList<Card> hand, String name, int points, String expertLevel){
-        super(hand, name, points, expertLevel);
+    public RegularPlayer(String name,String expertLevel){
+        super(name,expertLevel);
 
     }
 
@@ -13,7 +13,7 @@ public class RegularPlayer extends Player{
         Card bestCard = null;
         for (Card i : getHand()) {
             if(table.size()>0) {
-                if (table.get(cardsOnTable - 1).rank == i.rank) {
+                if (table.get(cardsOnTable - 1).rank == i.rank || i.suit == "J") {
                     if (bestCard == null || i.cardPoint > bestCard.cardPoint) {
                         bestCard = i;
                     }
@@ -22,7 +22,7 @@ public class RegularPlayer extends Player{
         }
         for(Card i : getHand()){
             if(table.size()>0){
-                if(table.get(cardsOnTable-1).rank == i.rank){
+                if(table.get(cardsOnTable-1).rank == i.rank || i.suit == "J"){
                     if(calculateTableScore(table) > 0){
                         getHand().remove(bestCard);
                         return bestCard;

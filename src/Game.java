@@ -1,45 +1,56 @@
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.sql.SQLOutput;
 import java.util.*;
 
 public class Game {
+    public int playerCount;
+    private Player[] players = new Player[playerCount];
     private ArrayList<Card> deck;
     private String pointFilePath;
     public ArrayList<Card> playedCards;
     public Random ran = new Random();
-    public boolean isFirstRound = true;
-    public int playerCount;
+    public boolean isFirstRound;
     public ArrayList<Card> table;
     public ArrayList<String> playerNames;
     public ArrayList<String> playerExpertise;
-    public String verbosenessLevel;
+    public boolean verbosenessLevel;
     private String playerScores[][];
-
     public boolean isMishti = false; // pişti puanı hesaplanırken kullan!
-
-    Player player1 = null; //Human
-    Player player2 = null;
-    Player player3 = null;
-    Player player4 = null;
-
-    public Game(int playerCount,String pointFilePath,ArrayList<String> playerNames,ArrayList<String> playerExpertise,String verbosenessLevel){
+    public Game(String pointFilePath,int playerCount,ArrayList<String> playerNames,ArrayList<String> playerExpertise,boolean verbosenessLevel){
         this.pointFilePath = pointFilePath;
         this.playerCount = playerCount;
         this.playerNames = playerNames;
         this.playerExpertise = playerExpertise;
         this.verbosenessLevel = verbosenessLevel;
     }
+    public void InitPlayers(){
+        for(int i=0;i<playerCount;i++){
+            if(playerExpertise.get(i) == "H" || playerExpertise.get(i) == "h"){
+                players[i] = new HumanPlayer(playerNames.get(i),playerExpertise.get(i));
+            }
+            if(playerExpertise.get(i) == "N" || playerExpertise.get(i) == "n"){
+                players[i] = new NovicePlayer(playerNames.get(i),playerExpertise.get(i));
+            }
+            if(playerExpertise.get(i) == "R" || playerExpertise.get(i) == "r"){
+                players[i] = new RegularPlayer(playerNames.get(i),playerExpertise.get(i));
+            }
+            if(playerExpertise.get(i) == "E" || playerExpertise.get(i) == "e"){
+                players[i] = new ExpertPlayer(playerNames.get(i),playerExpertise.get(i));
+            }
+        }
+    }
 
-    public void InitGame(int playerCount){ //*************************
+    public void InitGame(int playerCount){
         createDeck();
         cutDeck();
         shuffleDeck();
-
-
-
-
-
+        isFirstRound = true;
+        playedCards.clear();
+        table.clear();
+        InitPlayers();
+    //log temizleme
    }
 
     public void  getDeckWithPoints() {
@@ -107,19 +118,19 @@ public class Game {
             isFirstRound=false;
         }
        if (playerCount==2){
-           deal4Card(player1);
-           deal4Card(player2);
+           deal4Card(players[0]);
+           deal4Card(players[1]);
        }
         if (playerCount==3){
-            deal4Card(player1);
-            deal4Card(player2);
-            deal4Card(player3);
+            deal4Card(players[0]);
+            deal4Card(players[1]);
+            deal4Card(players[2]);
         }
         if (playerCount==4){
-            deal4Card(player1);
-            deal4Card(player2);
-            deal4Card(player3);
-            deal4Card(player4);
+            deal4Card(players[0]);
+            deal4Card(players[1]);
+            deal4Card(players[2]);
+            deal4Card(players[3]);
         }
     }
     public void addGround(Card thrownCard){ // Human and Bots
@@ -131,13 +142,13 @@ public class Game {
     public void cardCompare(Player player){
 
         int size = table.size();
-        if (table.size()>1){
+        if (table.size()>2){
             if (table.get(size-1).getRank() == table.get(size-2).getRank() || table.get(size-1).getRank() == "J"){
                 calculateScore(isMishti,player);
                 table.clear();
             }
         }
-        if (table.size() == 1){
+        if (table.size() == 2){
             if (table.get(size-1).getRank() == table.get(size-2).getRank()){
                 isMishti = true;
                 calculateScore(isMishti,player);
@@ -167,7 +178,6 @@ public class Game {
         addGround(thrownCard);
         cardCompare(player);
     }
-    public void GameLoop(int round,){}
 
     public void CreateLeaderboard(Player player) throws IOException {
         ReadLeaderboard(true);
@@ -264,21 +274,27 @@ public class Game {
                 reader.close();
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public void GameLoop(int round) throws IOException {
+        int roundCounter = 0;
+        while(roundCounter<round) {
+                InitGame(playerCount);
+            while(!deck.isEmpty()) {
+                dealCard();
+                for (Player p : players) {
+                    playRound(p); // human parameter
+                }
+            }
+            Player winner = null;
+            for(Player p: players){
+                if(winner == null || p.getPoints() > winner.getPoints()){
+                    winner = p;
+                }
+            }
+            System.out.println(roundCounter+1 + ". ROUND OVER");
+            System.out.println("------------------------");
+            CreateLeaderboard(winner);
+            roundCounter++;
+        }
+    }
 
 }
