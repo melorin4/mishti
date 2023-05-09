@@ -1,16 +1,18 @@
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
         Path path = Path.of("").toAbsolutePath();
         String pointFilePath = path.normalize().toString()+ "\\src\\PointFile";
-
+        ArrayList<String> playerNames = args[3].split(" ");
         if (args.length >=1 ){
-            pointFilePath = args[0];
+            pointFilePath = args[1];
         }
-
-        Game game = new Game(pointFilePath);
+//                number of players,point file name,
+//                             ^        ^
+        Game game = new Game(args[0],args[1], );
         game.createDeck();
 
         //game.printDeck();
