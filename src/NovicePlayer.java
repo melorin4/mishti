@@ -7,16 +7,14 @@ public class NovicePlayer extends Player  {
 
     }
 
-    /*
-    @Override
-    public void throwCard() {
-        int random = ran.nextInt(0,getHand().size());
-            addGround(getHand().get(random));
-            cardCompare();
-            getHand().remove(random);
-        }
 
-     */
+    @Override
+    public Card throwCard(ArrayList<Card> table,ArrayList<Card> playedCards) {
+        int random = r.nextInt(0,getHand().size());
+            Card thrownCard = getHand().get(random);
+            getHand().remove(random);
+            return thrownCard;
+        }
     }
 
 

@@ -7,14 +7,14 @@ public class HumanPlayer extends Player {
 
     }
 
-    /*
-    public void throwCard(int cardNum){
-        addGround(player1.getHand().get(cardNum-1));
-        cardCompare();
-        player1.getHand().remove(cardNum-1);
+
+    public Card throwCard(int cardNum){
+        Card thrownCard = getHand().get(cardNum-1);
+        getHand().remove(cardNum-1);
+        return thrownCard;
     }
 
-     */
+
 
 
 }

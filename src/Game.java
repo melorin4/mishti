@@ -21,8 +21,10 @@ public class Game {
         this.pointFilePath = pointFilePath;
     }
 
-    public void InitGame(int playerCount){
+    public void InitGame(int playerCount){ //*************************
         createDeck();
+        cutDeck();
+        shuffleDeck();
 
 
 
@@ -116,30 +118,46 @@ public class Game {
     }
 
 
-    public void cardCompare(){
+    public void cardCompare(Player player){
 
         int size = table.size();
         if (table.size()>1){
             if (table.get(size-1).getRank() == table.get(size-2).getRank() || table.get(size-1).getRank() == "J"){
+                calculateScore(isMishti,player);
                 table.clear();
             }
-            // Puanlar eklenecek!!
-
         }
         if (table.size() == 1){
             if (table.get(size-1).getRank() == table.get(size-2).getRank()){
                 isMishti = true;
+                calculateScore(isMishti,player);
                 table.clear();
             }
             if (isMishti = false){
                 if (table.get(size-1).getRank() == "J"){
+                    calculateScore(isMishti,player);
                     table.clear();
-
                 }
             }
         }
         isMishti = false;
     }
+    public void calculateScore(boolean isMishti,Player player){
+        int score = 0;
+        for(Card i : table){
+            score += i.cardPoint;
+        }
+        if(isMishti) {
+            score = 5*score;
+        }
+        player.addPoints(score);
+    }
+    public void playRound(Player player){
+        Card thrownCard = player.throwCard(table,playedCards);
+        addGround(thrownCard);
+        cardCompare(player);
+    }
+    public void GameLoop
 
 
 

@@ -1,10 +1,11 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public abstract class Player  {
-    //Game game = new Game(); // why
+    public Random r = new Random();
     private ArrayList<Card> hand;
     private String name;
-    private int points;
+    private int points = 0;
     private String expertLevel;
 
     public Player(){
@@ -41,16 +42,24 @@ public abstract class Player  {
 
     }
 
-    public void setPoints(int points) {
-        this.points = points;
+    public void addPoints(int points) {
+        this.points += points;
     }
 
     public void setHand(ArrayList<Card> hand) {
         this.hand = hand;
     }
 
-    public void throwCard(){
+    public Card throwCard(ArrayList<Card> table,ArrayList<Card> playedCards){
+        return null;
+    }
 
+    public int calculateTableScore(ArrayList<Card> table){
+        int totalScore = 0;
+        for(Card i:table){
+            totalScore += i.cardPoint;
+        }
+        return totalScore;
     }
 
 
