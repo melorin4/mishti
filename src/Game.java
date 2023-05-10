@@ -4,6 +4,8 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class Game {
+    public String verbose = "";
+    public String succint = "";
     private int playerCount;
     private Player[] players = null;
     private ArrayList<Card> deck;
@@ -301,6 +303,12 @@ public class Game {
             CreateLeaderboard(winner);
             roundCounter++;
             isFirstGame = false;
+            if(verbosenessLevel){
+                System.out.println(verbose);
+            }
+            else {
+                System.out.println(succint);
+            }
         }
     }
 }

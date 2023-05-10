@@ -46,7 +46,6 @@ public class Card {
         int defaultPoint = 10; // default point
         try (BufferedReader br = new BufferedReader(new FileReader(file))){
 
-            // "C:\\Users\\selin\\OneDrive\\Desktop\\MySE116Project\\mishti\\src\\PointFile"
             String line;
 
             while ((line = br.readLine()) != null) {

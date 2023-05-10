@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -31,6 +28,7 @@ public class Main {
                     playerExpertise.add(args[4]);
                     playerExpertise.add(args[6]);
                     game = new Game(pointFilePath, Integer.parseInt(args[1]), playerNames, playerExpertise, Boolean.parseBoolean(args[7]));
+                    game.GameLoop(Integer.parseInt(args[2]));
                     break;
                 case "3":
                     playerNames.add(args[3]);
@@ -40,6 +38,8 @@ public class Main {
                     playerExpertise.add(args[6]);
                     playerExpertise.add(args[8]);
                     game = new Game(pointFilePath, Integer.parseInt(args[1]), playerNames, playerExpertise, Boolean.parseBoolean(args[9]));
+                    game.GameLoop(Integer.parseInt(args[2]));
+                    break;
                 case "4":
                     playerNames.add(args[3]);
                     playerNames.add(args[5]);
@@ -50,14 +50,16 @@ public class Main {
                     playerExpertise.add(args[8]);
                     playerExpertise.add(args[10]);
                     game = new Game(pointFilePath, Integer.parseInt(args[1]), playerNames, playerExpertise, Boolean.parseBoolean(args[11]));
+                    game.GameLoop(Integer.parseInt(args[2]));
+                    break;
+                default:
+                    throw new Exception();
             }
-        }catch (IllegalArgumentException e){
-            e.printStackTrace();
-            System.err.println("Please enter inputs in the correct order: *point file name* *number of players* *round* *name + expertise level for each player* *verbose mode(true/false)*");
+
+        }catch (Exception e){
+            System.out.println("Please enter inputs in the correct order: *point file name* *number of players* *round* *name + expertise level for each player* *verbose mode(true/false)*");
         }
-        game.createDeck();
-        game.getDeckWithPoints();
-        game.GameLoop(Integer.parseInt(args[2]));
+
 
 
     }
