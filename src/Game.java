@@ -1,18 +1,18 @@
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.sql.SQLOutput;
 import java.util.*;
 
 public class Game {
-    public int playerCount;
-    private Player[] players = new Player[playerCount];
+    private int playerCount;
+    private Player[] players = null;
     private ArrayList<Card> deck;
     private String pointFilePath;
-    public ArrayList<Card> playedCards;
+    public ArrayList<Card> playedCards = new ArrayList<>();
     public Random ran = new Random();
     public boolean isFirstRound;
-    public ArrayList<Card> table;
+    public boolean isFirstGame = true;
+    public ArrayList<Card> table = new ArrayList<>();
     public ArrayList<String> playerNames;
     public ArrayList<String> playerExpertise;
     public boolean verbosenessLevel;
@@ -25,31 +25,34 @@ public class Game {
         this.playerExpertise = playerExpertise;
         this.verbosenessLevel = verbosenessLevel;
     }
-    public void InitPlayers(){
+    public void InitPlayers(int playerCount){
         for(int i=0;i<playerCount;i++){
-            if(playerExpertise.get(i) == "H" || playerExpertise.get(i) == "h"){
+            if(playerExpertise.get(i).equals("H") || playerExpertise.get(i).equals("h")){
                 players[i] = new HumanPlayer(playerNames.get(i),playerExpertise.get(i));
             }
-            if(playerExpertise.get(i) == "N" || playerExpertise.get(i) == "n"){
+            if(playerExpertise.get(i).equals("N") || playerExpertise.get(i).equals("n")){
                 players[i] = new NovicePlayer(playerNames.get(i),playerExpertise.get(i));
             }
-            if(playerExpertise.get(i) == "R" || playerExpertise.get(i) == "r"){
+            if(playerExpertise.get(i).equals("R") || playerExpertise.get(i).equals("r")){
                 players[i] = new RegularPlayer(playerNames.get(i),playerExpertise.get(i));
             }
-            if(playerExpertise.get(i) == "E" || playerExpertise.get(i) == "e"){
+            if(playerExpertise.get(i).equals("E") || playerExpertise.get(i).equals("e")){
                 players[i] = new ExpertPlayer(playerNames.get(i),playerExpertise.get(i));
             }
         }
     }
 
-    public void InitGame(int playerCount){
+    public void InitGame(int playerCount,boolean isFirstGame){
         createDeck();
         cutDeck();
         shuffleDeck();
+        players = new Player[playerCount];
+        InitPlayers(playerCount);
         isFirstRound = true;
+        if(!isFirstGame){
         playedCards.clear();
         table.clear();
-        InitPlayers();
+        }
     //log temizleme
    }
 
@@ -77,7 +80,7 @@ public class Game {
     public void cutDeck() {
         int index = ran.nextInt(1,51);
         ArrayList<Card> topHalf = new ArrayList<>(deck.subList(0, index));
-        ArrayList<Card> bottomHalf = new ArrayList<>(deck.subList(index, deck.size()-1));
+        ArrayList<Card> bottomHalf = new ArrayList<>(deck.subList(index, deck.size()));
 
         //replace the first deck and change the cards with the cut version
         deck.clear();
@@ -206,8 +209,8 @@ public class Game {
         try {
             fw = new FileWriter("leaderboard.txt", false);
             f = new Formatter(fw);
-            for (int i = 0; i < playerScores.length; i++) {
-                f.format("%s,%s\n", playerScores[i][0], playerScores[i][1]);
+            for (String[] playerScore : playerScores) {
+                f.format("%s,%s\n", playerScore[0], playerScore[1]);
             }
             fw.close();
         } catch (Exception e) {
@@ -222,9 +225,9 @@ public class Game {
     public void PrintLeaderboard() {
         ReadLeaderboard(false);
         System.out.println("Leaderboard:");
-        for (int i = 0; i < playerScores.length; i++) {
-            if (playerScores[i][1] != null) {
-                System.out.println(playerScores[i][0] + ": " + playerScores[i][1]);
+        for (String[] playerScore : playerScores) {
+            if (playerScore[1] != null) {
+                System.out.println(playerScore[0] + ": " + playerScore[1]);
             }
         }
     }
@@ -277,7 +280,7 @@ public class Game {
     public void GameLoop(int round) throws IOException {
         int roundCounter = 0;
         while(roundCounter<round) {
-                InitGame(playerCount);
+                InitGame(playerCount,isFirstGame);
             while(!deck.isEmpty()) {
                 dealCard();
                 for (Player p : players) {
@@ -294,7 +297,7 @@ public class Game {
             System.out.println("------------------------");
             CreateLeaderboard(winner);
             roundCounter++;
+            isFirstGame = false;
         }
     }
-
 }
