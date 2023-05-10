@@ -8,11 +8,11 @@ public class HumanPlayer extends Player {
     }
 
 
-    public Card throwCard(ArrayList<Card> table){
+    public Card throwCard(ArrayList<Card> table,ArrayList<Card> playedCards){
         System.out.println("------------------------------");
         String groundInfo = "Last thrown card: ";
         if (table.size() > 0) {
-            groundInfo += table.get(0).getCardName();
+            groundInfo += table.get(table.size()-1).getCardName();
         } else {
             groundInfo += "no cards left";
         }

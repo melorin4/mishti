@@ -1,5 +1,6 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Card {
@@ -28,15 +29,25 @@ public class Card {
     }
 
     // file reading
-    public int getCardPoint(String filename) {
-        int defaultPoint = 10; // default point
-        try {
-            File file = new File(filename);
-            // "C:\\Users\\selin\\OneDrive\\Desktop\\MySE116Project\\mishti\\src\\PointFile"
-            Scanner scanner = new Scanner(file);
 
-            while (scanner.hasNextLine()) {
-                 String line = scanner.nextLine();
+
+    public int getCardPoint(String pointFileName) {
+        Path path = Paths.get(pointFileName);
+        File file = path.toFile();
+
+
+        if (!path.isAbsolute()){
+            String currentDir = System.getProperty("user.dir");
+            path = Paths.get(currentDir, pointFileName);
+        }
+        int defaultPoint = 10; // default point
+        try (BufferedReader br = new BufferedReader(new FileReader(file))){
+
+            // "C:\\Users\\selin\\OneDrive\\Desktop\\MySE116Project\\mishti\\src\\PointFile"
+            String line;
+
+            while ((line = br.readLine()) != null) {
+
                  if (line.startsWith(suit) && line.substring(1,3).contains(rank)) {
                      String[] parts = line.split("\\s+");
                      return Integer.parseInt(parts[1]);
@@ -58,6 +69,8 @@ public class Card {
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
         return defaultPoint;
     }

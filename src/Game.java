@@ -238,7 +238,7 @@ public class Game {
         String line = "";
         int playerCount = 0;
         try {
-            reader = new Scanner(Paths.get("C:\\Users\\Okan Özyürekli\\IdeaProjects\\Card Game Project\\leaderboard.txt"));
+            reader = new Scanner(Paths.get("C:\\Users\\selin\\OneDrive\\Desktop\\MySE116Project\\mishti\\leaderboard.txt"));
             while (reader.hasNextLine()) {
                 line = reader.nextLine();
                 String[] info = line.split(",");
@@ -259,7 +259,8 @@ public class Game {
         String line = "";
         int playerCount = 0;
         try {
-            reader = new Scanner(Paths.get("C:\\Users\\kaan\\Documents\\GitHub\\mishti\\src\\leaderboard.txt"));
+            reader = new Scanner(Paths.get("C:\\Users\\selin\\OneDrive\\Desktop\\MySE116Project\\mishti\\leaderboard.txt"));
+
             while (reader.hasNextLine()) {
                 playerCount++;
                 reader.nextLine();
@@ -283,8 +284,10 @@ public class Game {
                 InitGame(playerCount,isFirstGame);
             while(!deck.isEmpty()) {
                 dealCard();
-                for (Player p : players) {
-                    playRound(p); // human parameter
+                for (int i = 0; i < 4; i++) {
+                    for (Player p : players) {
+                        playRound(p); // human parameter
+                    }
                 }
             }
             Player winner = null;

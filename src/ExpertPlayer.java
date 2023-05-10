@@ -45,7 +45,7 @@ public class ExpertPlayer extends Player {
                 return worstCard;
             }
             for(Card i : getHand()) {
-                if(i.cardPoint < worstCard.cardPoint){
+                if(worstCard == null || i.cardPoint < worstCard.cardPoint){
                     worstCard = i;
                 }
             }

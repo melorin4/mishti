@@ -1,0 +1,10 @@
+okan,33
+okan,33
+huseyin,32
+selin,27
+huseyin,24
+okan,21
+lorin,20
+lorin,18
+okan,17
+lorin,12

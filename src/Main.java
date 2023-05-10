@@ -1,6 +1,10 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class Main {
@@ -8,11 +12,35 @@ public class Main {
         Game game = null;
         ArrayList<String> playerNames = new ArrayList<>();
         ArrayList<String> playerExpertise = new ArrayList<>();
+
+
+        String pointFilePath = args[0];
+        Path path = Paths.get(pointFilePath);
+        File file = path.toFile();
+
+
+        if (!path.isAbsolute()){
+            String currentDir = System.getProperty("user.dir");
+            path = Paths.get(currentDir, pointFilePath);
+        }
+
+        /* if (!file2.exists()) {
+            System.out.println("File not found: " + pointFileName);
+            return;
+        }
+
+         */
+
+
+
+        /*
         Path path = Path.of("").toAbsolutePath();
         String pointFilePath = path.normalize().toString()+ "\\src\\PointFile";
         if (args.length >=1 ){
             pointFilePath = args[0];
         }
+
+         */
         try {
             switch (args[1]) {
                 case "2":
@@ -45,6 +73,8 @@ public class Main {
             e.printStackTrace();
             System.err.println("Please enter inputs in the correct order: *point file name* *number of players* *round* *name + expertise level for each player* *verbose mode(true/false)*");
         }
+        game.createDeck();
+        game.getDeckWithPoints();
         game.GameLoop(Integer.parseInt(args[2]));
 
 

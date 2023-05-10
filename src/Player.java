@@ -5,7 +5,7 @@ import java.util.Scanner;
 public abstract class Player  {
     public Scanner sc = new Scanner(System.in);
     public Random r = new Random();
-    private ArrayList<Card> hand;
+    private ArrayList<Card> hand = new ArrayList<>();
     private String name;
     private int points = 0;
     private String expertLevel;
