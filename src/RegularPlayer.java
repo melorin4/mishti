@@ -13,7 +13,7 @@ public class RegularPlayer extends Player{
         Card bestCard = null;
         for (Card i : getHand()) {
             if(table.size()>0) {
-                if (table.get(cardsOnTable - 1).rank == i.rank || i.suit == "J") {
+                if (table.get(cardsOnTable - 1).rank.equals(i.rank) || i.rank.equals("J")){
                     if (bestCard == null || i.cardPoint > bestCard.cardPoint) {
                         bestCard = i;
                     }
@@ -22,7 +22,7 @@ public class RegularPlayer extends Player{
         }
         for(Card i : getHand()){
             if(table.size()>0){
-                if(table.get(cardsOnTable-1).rank == i.rank || i.suit == "J"){
+                if(table.get(cardsOnTable-1).rank.equals(i.rank) || i.rank.equals("J")){
                     if(calculateTableScore(table) > 0){
                         getHand().remove(bestCard);
                         return bestCard;

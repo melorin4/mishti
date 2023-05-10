@@ -12,7 +12,16 @@ public class ExpertPlayer extends Player {
             Card bestCard = null;
             for (Card i : getHand()) {
                 if(table.size()>0) {
-                    if (table.get(cardsOnTable - 1).rank == i.rank || i.suit == "J") {
+                    if (i.rank.equals("J")) {
+                        if (bestCard == null || i.cardPoint > bestCard.cardPoint) {
+                            bestCard = i;
+                        }
+                    }
+                }
+            }
+            for (Card i : getHand()) {
+                if(table.size()>0) {
+                    if (table.get(cardsOnTable - 1).rank.equals(i.rank)) {
                         if (bestCard == null || i.cardPoint > bestCard.cardPoint) {
                             bestCard = i;
                         }
@@ -21,7 +30,7 @@ public class ExpertPlayer extends Player {
             }
             for(Card i:getHand()){
                 if(table.size()>0){
-                    if(table.get(cardsOnTable-1).rank == i.rank || i.suit == "J"){
+                    if(table.get(cardsOnTable-1).rank.equals(i.rank) || i.rank.equals("J")){
                         if(calculateTableScore(table) > 0){
                             getHand().remove(bestCard);
                             return bestCard;
@@ -33,7 +42,7 @@ public class ExpertPlayer extends Player {
             trackCards(playedCards);
             for(Card i : getHand()) {
                 for(int j=0;j<13;j++){
-                    if(i.rank == seenCards[j][0] && seenCards[j][1] == "4"){
+                    if(i.rank.equals(seenCards[j][0]) && seenCards[j][1].equals("4")){
                         if(worstCard == null || i.cardPoint < worstCard.cardPoint) {
                             worstCard = i;
                         }
