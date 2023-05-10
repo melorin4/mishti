@@ -13,25 +13,7 @@ public class Main {
         ArrayList<String> playerNames = new ArrayList<>();
         ArrayList<String> playerExpertise = new ArrayList<>();
 
-
         String pointFilePath = args[0];
-        Path path = Paths.get(pointFilePath);
-        File file = path.toFile();
-
-
-        if (!path.isAbsolute()){
-            String currentDir = System.getProperty("user.dir");
-            path = Paths.get(currentDir, pointFilePath);
-        }
-
-        /* if (!file2.exists()) {
-            System.out.println("File not found: " + pointFileName);
-            return;
-        }
-
-         */
-
-
 
         /*
         Path path = Path.of("").toAbsolutePath();
@@ -39,8 +21,8 @@ public class Main {
         if (args.length >=1 ){
             pointFilePath = args[0];
         }
-
-         */
+        */
+        
         try {
             switch (args[1]) {
                 case "2":

@@ -36,10 +36,13 @@ public class Card {
         File file = path.toFile();
 
 
-        if (!path.isAbsolute()){
+        /*if (!path.isAbsolute()){
             String currentDir = System.getProperty("user.dir");
             path = Paths.get(currentDir, pointFileName);
-        }
+            }
+        */
+
+
         int defaultPoint = 10; // default point
         try (BufferedReader br = new BufferedReader(new FileReader(file))){
 
