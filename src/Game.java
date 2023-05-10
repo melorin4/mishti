@@ -1,5 +1,6 @@
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
@@ -240,7 +241,8 @@ public class Game {
         String line = "";
         int playerCount = 0;
         try {
-            reader = new Scanner(Paths.get("C:\\Users\\selin\\OneDrive\\Desktop\\MySE116Project\\mishti\\leaderboard.txt"));
+            Path path = Paths.get("leaderboard.txt");
+            reader = new Scanner(path);
             while (reader.hasNextLine()) {
                 line = reader.nextLine();
                 String[] info = line.split(",");
@@ -261,7 +263,8 @@ public class Game {
         String line = "";
         int playerCount = 0;
         try {
-            reader = new Scanner(Paths.get("C:\\Users\\selin\\OneDrive\\Desktop\\MySE116Project\\mishti\\leaderboard.txt"));
+            Path path = Paths.get("leaderboard.txt");
+            reader = new Scanner(path);
 
             while (reader.hasNextLine()) {
                 playerCount++;

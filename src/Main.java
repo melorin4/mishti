@@ -59,8 +59,5 @@ public class Main {
         }catch (Exception e){
             System.out.println("Please enter inputs in the correct order: *point file name* *number of players* *round* *name + expertise level for each player* *verbose mode(true/false)*");
         }
-
-
-
     }
 }

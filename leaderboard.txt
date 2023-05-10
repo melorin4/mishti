@@ -1,2 +1,10 @@
-okan,30
-lina,25
+lorin,43
+lorin,40
+lorin,36
+huseyin,36
+huseyin,25
+huseyin,25
+huseyin,24
+lorin,24
+huseyin,23
+selin,22
