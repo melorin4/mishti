@@ -5,6 +5,7 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class Game {
+    public String cardsOnGround = "";
     public String verbose = "";
     public String succint = "";
     private int playerCount;
@@ -108,34 +109,47 @@ public class Game {
     }
 
     public void deal4Card(Player player){
-
+        verbose += "{ ";
         for (int i=0; i<4; i++) {
             Card temp = pullCardFromDeck();
-            player.getHand().add(temp);}
+            verbose +=  temp.cardName + " ";
+            player.getHand().add(temp);
+        }
+        verbose += "} Score: " + player.getPoints() + " ||| ";
     }
     public void dealCard(){
-
         if (isFirstRound){
+            cardsOnGround += "Cards on table: ";
             for (int i=0; i<4; i++){
                Card temp = pullCardFromDeck();
+               cardsOnGround += temp.getCardName() + " ";
                table.add(temp);
                playedCards.add(temp);
             }
             isFirstRound=false;
         }
        if (playerCount==2){
+           verbose += "Player1: ";
            deal4Card(players[0]);
+           verbose += "Player2: ";
            deal4Card(players[1]);
        }
         if (playerCount==3){
+            verbose += "Player1: ";
             deal4Card(players[0]);
+            verbose += "Player2: ";
             deal4Card(players[1]);
+            verbose += "Player3: ";
             deal4Card(players[2]);
         }
         if (playerCount==4){
+            verbose += "Player1: ";
             deal4Card(players[0]);
+            verbose += "Player2: ";
             deal4Card(players[1]);
+            verbose += "Player3: ";
             deal4Card(players[2]);
+            verbose += "Player4: ";
             deal4Card(players[3]);
         }
     }
@@ -181,6 +195,7 @@ public class Game {
     }
     public void playRound(Player player){
         Card thrownCard = player.throwCard(table,playedCards);
+        verbose += thrownCard.cardName + " ";
         addGround(thrownCard);
         cardCompare(player);
     }
@@ -285,15 +300,19 @@ public class Game {
     }
     public void GameLoop(int round) throws IOException {
         int roundCounter = 0;
+        int handCounter = 1;
         while(roundCounter<round) {
                 InitGame(playerCount,isFirstGame);
             while(!deck.isEmpty()) {
+                verbose += "\nHand " + handCounter + ": ";
                 dealCard();
                 for (int i = 0; i < 4; i++) {
+                    verbose += "\n  " + (i+1) + ". " ;
                     for (Player p : players) {
                         playRound(p); // human parameter
                     }
                 }
+                handCounter++;
             }
             Player winner = null;
             for(Player p: players){
@@ -301,16 +320,21 @@ public class Game {
                     winner = p;
                 }
             }
+            handCounter = 1;
             System.out.println(roundCounter+1 + ". ROUND OVER");
             System.out.println("------------------------");
             CreateLeaderboard(winner);
             roundCounter++;
             isFirstGame = false;
             if(verbosenessLevel){
+                verbose = cardsOnGround + verbose;
                 System.out.println(verbose);
+                verbose = "";
+                cardsOnGround = "";
             }
             else {
                 System.out.println(succint);
+                succint = "";
             }
         }
     }
