@@ -5,9 +5,9 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class Game {
+    public Player lastWinCards;
     public String cardsOnGround = "";
     public String verbose = "";
-    public String succint = "";
     private int playerCount;
     private Player[] players = null;
     private ArrayList<Card> deck;
@@ -166,6 +166,7 @@ public class Game {
             if (table.get(size-1).getRank() == table.get(size-2).getRank() || table.get(size-1).getRank() == "J"){
                 calculateScore(isMishti,player);
                 table.clear();
+                lastWinCards = player;
             }
         }
         if (table.size() == 2){
@@ -173,11 +174,13 @@ public class Game {
                 isMishti = true;
                 calculateScore(isMishti,player);
                 table.clear();
+                lastWinCards = player;
             }
             if (isMishti = false){
                 if (table.get(size-1).getRank() == "J"){
                     calculateScore(isMishti,player);
                     table.clear();
+                    lastWinCards = player;
                 }
             }
         }
@@ -211,6 +214,7 @@ public class Game {
         }
         if (position != -1) {
             System.out.println("CONGRATULATIONS\n---high score---");
+            System.out.println("------------------------");
             for (int i = playerScores.length - 1; i > position; i--) {
                 playerScores[i][0] = playerScores[i - 1][0];
                 playerScores[i][1] = playerScores[i - 1][1];
@@ -299,9 +303,11 @@ public class Game {
         }
     }
     public void GameLoop(int round) throws IOException {
+
         int roundCounter = 0;
         int handCounter = 1;
         while(roundCounter<round) {
+            System.out.println(roundCounter+1 + ". ROUND BEGINS");
                 InitGame(playerCount,isFirstGame);
             while(!deck.isEmpty()) {
                 verbose += "\nHand " + handCounter + ": ";
@@ -314,14 +320,21 @@ public class Game {
                 }
                 handCounter++;
             }
+            if(table.size() > 0){
+                calculateScore(false,lastWinCards);
+            }
             Player winner = null;
             for(Player p: players){
                 if(winner == null || p.getPoints() > winner.getPoints()){
                     winner = p;
                 }
             }
+
             handCounter = 1;
             System.out.println(roundCounter+1 + ". ROUND OVER");
+
+            System.out.println("------------------------");
+            System.out.println(winner.getName() + " WINS!!");
             System.out.println("------------------------");
             CreateLeaderboard(winner);
             roundCounter++;
@@ -332,10 +345,11 @@ public class Game {
                 verbose = "";
                 cardsOnGround = "";
             }
-            else {
-                System.out.println(succint);
-                succint = "";
+            System.out.print("Score List: ");
+            for(Player i: players) {
+                System.out.print(i.getName() + ": " + i.getPoints() + " | ");
             }
+            System.out.println("\n------------------------");
         }
     }
 }

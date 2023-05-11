@@ -21,8 +21,17 @@ public class Main {
         */
         
         try {
+            int round = Integer.parseInt(args[2]);
+            if(round<1){
+                throw new Exception();
+            }
             switch (args[1]) {
                 case "2":
+                    if(!args[7].equals("true")) {
+                        if(!args[7].equals("false")) {
+                            throw new Exception();
+                        }
+                    }
                     playerNames.add(args[3]);
                     playerNames.add(args[5]);
                     playerExpertise.add(args[4]);
@@ -31,6 +40,11 @@ public class Main {
                     game.GameLoop(Integer.parseInt(args[2]));
                     break;
                 case "3":
+                    if(!args[9].equals("true")) {
+                        if(!args[9].equals("false")) {
+                            throw new Exception();
+                        }
+                    }
                     playerNames.add(args[3]);
                     playerNames.add(args[5]);
                     playerNames.add(args[7]);
@@ -41,6 +55,11 @@ public class Main {
                     game.GameLoop(Integer.parseInt(args[2]));
                     break;
                 case "4":
+                    if(!args[11].equals("true")) {
+                        if(!args[11].equals("false")) {
+                            throw new Exception();
+                        }
+                    }
                     playerNames.add(args[3]);
                     playerNames.add(args[5]);
                     playerNames.add(args[7]);
