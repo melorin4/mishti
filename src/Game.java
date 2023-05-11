@@ -1,5 +1,4 @@
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
@@ -204,6 +203,10 @@ public class Game {
     }
 
     public void CreateLeaderboard(Player player) throws IOException {
+        File leaderboardFile = new File("leaderboard.txt");
+        if (!leaderboardFile.exists()) {
+            leaderboardFile.createNewFile();
+        }
         ReadLeaderboard(true);
         int position = -1;
         for (int i = 0; i < playerScores.length; i++) {
@@ -256,14 +259,10 @@ public class Game {
 
     public void ReadLeaderboard(boolean isNewHighScore) {
         FindPlayerCount(isNewHighScore);
-        Scanner reader = null;
-        String line = "";
         int playerCount = 0;
-        try {
-            Path path = Paths.get("leaderboard.txt");
-            reader = new Scanner(path);
-            while (reader.hasNextLine()) {
-                line = reader.nextLine();
+        try (BufferedReader reader = new BufferedReader(new FileReader("leaderboard.txt"))){
+            String line;
+            while ((line = reader.readLine())!= null) {
                 String[] info = line.split(",");
                 playerScores[playerCount][0] = info[0];
                 playerScores[playerCount][1] = info[1];
@@ -271,23 +270,16 @@ public class Game {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            if (reader != null)
-                reader.close();
         }
     }
 
     public void FindPlayerCount(boolean isNewHighScore) {
-        Scanner reader = null;
-        String line = "";
         int playerCount = 0;
-        try {
-            Path path = Paths.get("leaderboard.txt");
-            reader = new Scanner(path);
 
-            while (reader.hasNextLine()) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("leaderboard.txt"))){
+            String line;
+            while ((line = reader.readLine())!= null) {
                 playerCount++;
-                reader.nextLine();
             }
             if (playerCount >= 10) {
                 playerCount = 10;
@@ -297,9 +289,6 @@ public class Game {
             playerScores = new String[playerCount][2];
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            if (reader != null)
-                reader.close();
         }
     }
     public void GameLoop(int round) throws IOException {

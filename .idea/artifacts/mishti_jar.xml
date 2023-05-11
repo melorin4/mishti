@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="mishti:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/mishti_jar</output-path>
+    <root id="archive" name="mishti.jar">
+      <element id="module-output" name="mishti" />
+    </root>
+  </artifact>
+</component>
