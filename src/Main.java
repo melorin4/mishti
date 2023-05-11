@@ -10,7 +10,6 @@ public class Main {
         ArrayList<String> playerNames = new ArrayList<>();
         ArrayList<String> playerExpertise = new ArrayList<>();
 
-        String pointFilePath = args[0];
 
         /*
         Path path = Path.of("").toAbsolutePath();
@@ -19,8 +18,9 @@ public class Main {
             pointFilePath = args[0];
         }
         */
-        
+
         try {
+            String pointFilePath = args[0];
             int round = Integer.parseInt(args[2]);
             if(round<1){
                 throw new Exception();

@@ -4,3 +4,5 @@ okan,47
 okan,42
 okan,39
 okan,39
+okan,35
+lorin,23
