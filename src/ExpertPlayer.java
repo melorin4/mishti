@@ -1,11 +1,9 @@
 import java.util.ArrayList;
 
 public class ExpertPlayer extends Player {
-
     public ExpertPlayer(String name,String expertLevel){
             super(name,expertLevel);
     }
-
         @Override
         public Card throwCard(ArrayList<Card> table,ArrayList<Card> playedCards){
             int cardsOnTable = table.size();
@@ -61,7 +59,6 @@ public class ExpertPlayer extends Player {
             getHand().remove(worstCard);
             return worstCard;
         }
-    
 }
 
 

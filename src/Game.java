@@ -78,9 +78,8 @@ public class Game {
     public void createDeck()
     {
         ArrayList<Card> localDeck = new ArrayList<Card>();
-        String[] suits = {"♠", "♥", " ♦", "♣"};
+        String[] suits = {"♠", "♥", "♦", "♣"};
         String[] ranks = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
-        //create the cards
         for (String suit : suits) {
             for (String rank : ranks) {
                 localDeck.add(new Card(suit, rank, this.pointFilePath));
@@ -311,7 +310,7 @@ public class Game {
                 for (int i = 0; i < 4; i++) {
                     verbose += "\n  " + (i+1) + ". " ;
                     for (Player p : players) {
-                        playRound(p); // human parameter
+                        playRound(p);
                     }
                 }
                 handCounter++;
