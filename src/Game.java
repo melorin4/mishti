@@ -1,6 +1,4 @@
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 
 public class Game {
@@ -20,7 +18,7 @@ public class Game {
     public ArrayList<String> playerExpertise;
     public boolean verbosenessLevel;
     private String playerScores[][];
-    public boolean isMishti = false; // pişti puanı hesaplanırken kullan!
+    public boolean isMishti = false;
     public Game(String pointFilePath,int playerCount,ArrayList<String> playerNames,ArrayList<String> playerExpertise,boolean verbosenessLevel){
         this.pointFilePath = pointFilePath;
         this.playerCount = playerCount;
@@ -29,18 +27,30 @@ public class Game {
         this.verbosenessLevel = verbosenessLevel;
     }
     public void InitPlayers(int playerCount){
-        for(int i=0;i<playerCount;i++){
-            if(playerExpertise.get(i).equals("H") || playerExpertise.get(i).equals("h")){
-                players[i] = new HumanPlayer(playerNames.get(i),playerExpertise.get(i));
+        int humanCounter = 0;
+        for (int i = 0; i < playerCount; i++) {
+            if (playerExpertise.get(i).equals("H") || playerExpertise.get(i).equals("h")) {
+                players[i] = new HumanPlayer(playerNames.get(i), playerExpertise.get(i));
+                humanCounter++;
             }
-            if(playerExpertise.get(i).equals("N") || playerExpertise.get(i).equals("n")){
-                players[i] = new NovicePlayer(playerNames.get(i),playerExpertise.get(i));
+            if (playerExpertise.get(i).equals("N") || playerExpertise.get(i).equals("n")) {
+                players[i] = new NovicePlayer(playerNames.get(i), playerExpertise.get(i));
             }
-            if(playerExpertise.get(i).equals("R") || playerExpertise.get(i).equals("r")){
-                players[i] = new RegularPlayer(playerNames.get(i),playerExpertise.get(i));
+            if (playerExpertise.get(i).equals("R") || playerExpertise.get(i).equals("r")) {
+                players[i] = new RegularPlayer(playerNames.get(i), playerExpertise.get(i));
             }
-            if(playerExpertise.get(i).equals("E") || playerExpertise.get(i).equals("e")){
-                players[i] = new ExpertPlayer(playerNames.get(i),playerExpertise.get(i));
+            if (playerExpertise.get(i).equals("E") || playerExpertise.get(i).equals("e")) {
+                players[i] = new ExpertPlayer(playerNames.get(i), playerExpertise.get(i));
+            }
+        }
+        if(humanCounter>1){
+            System.out.println("There can be only one human player.");
+            throw new RuntimeException();
+        }
+        for(Player p:players){
+            if(p == null) {
+                System.out.println("Please check player name and expertise.");
+                throw new RuntimeException();
             }
         }
     }
@@ -56,7 +66,6 @@ public class Game {
         playedCards.clear();
         table.clear();
         }
-    //log temizleme
    }
 
     public void  getDeckWithPoints() {
@@ -84,8 +93,6 @@ public class Game {
         int index = ran.nextInt(1,51);
         ArrayList<Card> topHalf = new ArrayList<>(deck.subList(0, index));
         ArrayList<Card> bottomHalf = new ArrayList<>(deck.subList(index, deck.size()));
-
-        //replace the first deck and change the cards with the cut version
         deck.clear();
         deck.addAll(bottomHalf);
         deck.addAll(topHalf);
@@ -152,7 +159,7 @@ public class Game {
             deal4Card(players[3]);
         }
     }
-    public void addGround(Card thrownCard){ // Human and Bots
+    public void addGround(Card thrownCard){
         playedCards.add(thrownCard);
         table.add(thrownCard);
     }
@@ -296,8 +303,8 @@ public class Game {
         int roundCounter = 0;
         int handCounter = 1;
         while(roundCounter<round) {
-            System.out.println(roundCounter+1 + ". ROUND BEGINS");
                 InitGame(playerCount,isFirstGame);
+            System.out.println(roundCounter+1 + ". ROUND BEGINS");
             while(!deck.isEmpty()) {
                 verbose += "\nHand " + handCounter + ": ";
                 dealCard();

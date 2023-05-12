@@ -11,7 +11,7 @@ public class HumanPlayer extends Player {
 
     public Card throwCard(ArrayList<Card> table, ArrayList<Card> playedCards) {
         while (true) {
-            System.out.println("------------------------------");
+            System.out.println("--------------------- (Enter 9 to exit) ---------------------");
             String groundInfo = "Last thrown card: ";
             if (table.size() > 0) {
                 groundInfo += table.get(table.size() - 1).getCardName();
@@ -28,6 +28,10 @@ public class HumanPlayer extends Player {
             System.out.println("Please enter the number of the card you want to throw: ");
             try {
                 int cardNum = sc.nextInt();
+                if(cardNum == 9){
+                    System.out.println("Shutting down...");
+                    System.exit(0);
+                }
                 Card thrownCard = getHand().get(cardNum - 1);
                 getHand().remove(thrownCard);
                 return thrownCard;
