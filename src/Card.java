@@ -10,7 +10,7 @@ public class Card {
     public Card(String suit, String rank, String pointFilePath) {
         this.suit = suit;
         this.rank = rank;
-        this.cardName = suit + " " + rank;
+        this.cardName = suit + rank;
         this.cardPoint = this.getCardPoint(pointFilePath);
     }
 

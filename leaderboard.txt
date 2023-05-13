@@ -1,10 +1,10 @@
+lorin,60
 okan,58
 okan,54
+okan,52
+lorin,51
 okan,50
 okan,47
 okan,47
+lorin,43
 okan,42
-okan,39
-okan,39
-lorin,37
-okan5,36
